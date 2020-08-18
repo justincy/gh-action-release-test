@@ -5,5 +5,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Log PWD
+        run: pwd
+      - name: List files
+        run: ls -al
       - name: Check for Release
         run: node check-release.js
