@@ -9,5 +9,7 @@ jobs:
         run: pwd
       - name: List files
         run: ls -al
+      - name: List files in parent directory
+        run: ls -al ..
       - name: Check for Release
         run: node check-release.js
