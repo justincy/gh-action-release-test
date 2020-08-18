@@ -7,5 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: justincy/npm-current-version-action@2.0.0
+        id: version
       - name: Print version
-        run: echo 'Current version is ${{ steps.npm-current-version-action.outputs.version }}'
+        run: echo 'Version ${{ steps.version.outputs.version }}'
