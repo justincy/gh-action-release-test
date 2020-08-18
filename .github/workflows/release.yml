@@ -6,6 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: justincy/npm-current-version-action@1.0.0
+      - uses: justincy/npm-current-version-action@2.0.0
       - name: Print version
         run: echo 'Current version is ${{ steps.npm-current-version-action.outputs.version }}'
