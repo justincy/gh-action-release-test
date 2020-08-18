@@ -1,0 +1,9 @@
+name: Release
+on: [push, pull_request]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Release
+        run: node check-release.js
