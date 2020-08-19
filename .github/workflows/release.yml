@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ steps.release.outputs.release }}
+          fetch-depth: 0 # Get full history so that we can generate a change log
       - name: Latest release SHA
         id: releasesha
         run: echo ::set-output name=sha::$(git rev-parse HEAD)
@@ -32,6 +33,9 @@ jobs:
         run: echo "::set-output name=newrelease::true"
       - name: Print newrelease
         run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
+      - name: Checkout latest  
+        if: steps.newrelease.outputs.newrelease == 'true'
+        run: git checkout HEAD
       - name: Change log
         if: steps.newrelease.outputs.newrelease == 'true'
         id: changelog
