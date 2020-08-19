@@ -32,9 +32,9 @@ jobs:
         run: echo "::set-output name=newrelease::true"
       - name: Print newrelease
         run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
-      - name: Change log
-        id: changelog
-        run: echo ::set-output name=changelog::$(git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s")
+      # - name: Change log
+      #   id: changelog
+      #   run: echo ::set-output name=changelog::$(git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s")
       - name: Release
         if: steps.newrelease.outputs.newrelease == 'true'
         uses: actions/create-release@v1
