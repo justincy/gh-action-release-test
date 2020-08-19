@@ -10,3 +10,7 @@ jobs:
         id: version
       - name: Print version
         run: echo 'Version ${{ steps.version.outputs.version }}'
+      - uses: pozetroninc/github-action-get-latest-release@v0.1.0
+        id: release
+      - name: Print release
+        run: echo 'Release ${{ steps.release.outputs.release }}'
