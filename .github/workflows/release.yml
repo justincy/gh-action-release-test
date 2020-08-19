@@ -33,6 +33,7 @@ jobs:
       - name: Print newrelease
         run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
       - name: Change log
+        if: steps.newrelease.outputs.newrelease == 'true'
         id: changelog
         run: git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt && cat changelog.txt
       - name: Release
