@@ -33,13 +33,10 @@ jobs:
         run: echo "::set-output name=newrelease::true"
       - name: Print newrelease
         run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
-      - name: Checkout latest  
-        if: steps.newrelease.outputs.newrelease == 'true'
-        run: git checkout HEAD
       - name: Change log
         if: steps.newrelease.outputs.newrelease == 'true'
         id: changelog
-        run: git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt && cat changelog.txt
+        run: git checkout HEAD && git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt
       - name: Release
         if: steps.newrelease.outputs.newrelease == 'true'
         uses: actions/create-release@v1
