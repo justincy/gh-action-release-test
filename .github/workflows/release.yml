@@ -5,6 +5,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - run: apt-get update && apt-get install -y git
       - uses: actions/checkout@v2
       - uses: justincy/npm-version-action@2.0.1
         id: currentversion
@@ -36,7 +37,7 @@ jobs:
       - name: Change log
         if: steps.newrelease.outputs.newrelease == 'true'
         id: changelog
-        run: git checkout HEAD && git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt
+        run: git checkout ${{ github.sha }} && git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt
       - name: Release
         if: steps.newrelease.outputs.newrelease == 'true'
         uses: actions/create-release@v1
