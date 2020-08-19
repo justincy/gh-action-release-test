@@ -30,7 +30,7 @@ jobs:
       - name: Print newrelease
         run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
       - name: Release
-        if: steps.newrelease.outputs.newrelease == true
+        if: steps.newrelease.outputs.newrelease == 'true'
         uses: actions/create-release@v1
         with:
           tag_name: ${{ steps.currentversion.outputs.version }}
