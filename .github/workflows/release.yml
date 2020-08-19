@@ -19,9 +19,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ steps.release.outputs.release }}
-      - name: Latest release SHA
-        id: releasesha
-        run: echo ::set-output name=sha::$(git rev-parse HEAD)
+      # - name: Latest release SHA
+      #   id: releasesha
+      #   run: echo ::set-output name=sha::$(git rev-parse HEAD)
       - uses: justincy/npm-version-action@2.0.1
         id: latestversion
       - name: Print latest version
