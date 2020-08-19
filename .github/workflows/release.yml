@@ -6,13 +6,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: justincy/npm-current-version-action@2.0.1
-        id: version
-      - name: Print version
-        run: echo 'Version ${{ steps.version.outputs.version }}'
+      - uses: justincy/npm-version-action@2.0.1
+        id: currentversion
+      - name: Print current version
+        run: echo 'Current version ${{ steps.currentversion.outputs.version }}'
       - uses: pozetroninc/github-action-get-latest-release@v0.4.0
         id: release
         with:
           repository: ${{ github.repository }}
       - name: Print release
         run: echo 'Release ${{ steps.release.outputs.release }}'
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.release.outputs.release }}
+      - uses: justincy/npm-version-action@2.0.1
+        id: latestversion
+      - name: Print latest version
+        run: echo 'Latest version ${{ steps.latestversion.outputs.version }}'
+      
