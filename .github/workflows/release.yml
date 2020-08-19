@@ -34,7 +34,7 @@ jobs:
         run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
       - name: Change log
         id: changelog
-        run: $(git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s") > changelog.txt
+        run: git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt
       - name: Release
         if: steps.newrelease.outputs.newrelease == 'true'
         uses: actions/create-release@v1
