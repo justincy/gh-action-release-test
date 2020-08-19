@@ -41,4 +41,4 @@ jobs:
         with:
           tag_name: ${{ steps.currentversion.outputs.version }}
           release_name: ${{ steps.currentversion.outputs.version }}
-          body: ${{ steps.changelog.outputs.changelog }}
+          # body: ${{ steps.changelog.outputs.changelog }}
