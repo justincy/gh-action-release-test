@@ -5,7 +5,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - run: apt-get update && apt-get install -y git
       - uses: actions/checkout@v2
       - uses: justincy/npm-version-action@2.0.1
         id: currentversion
