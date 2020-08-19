@@ -23,4 +23,14 @@ jobs:
         id: latestversion
       - name: Print latest version
         run: echo 'Latest version ${{ steps.latestversion.outputs.version }}'
-      
+      - name: New release?
+        id: newrelease
+        if: steps.currentversion.outputs.version != steps.latestversion.outputs.version
+        run: echo "::set-ouput name=newrelease::true"
+      - name: Release
+        if: steps.newrelease.outputs.newrelease == true
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.currentversion.outputs.version }}
+          release_name: ${{ steps.currentversion.outputs.version }}
+          body: Automatic release. Will fill in the release notes later.
