@@ -6,43 +6,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # - uses: justincy/npm-version-action@2.0.1
-      #   id: currentversion
-      # - name: Print current version
-      #   run: echo 'Current version ${{ steps.currentversion.outputs.version }}'
-      # - uses: pozetroninc/github-action-get-latest-release@v0.4.0
-      #   id: release
-      #   with:
-      #     repository: ${{ github.repository }}
-      # - name: Print release
-      #   run: echo 'Release ${{ steps.release.outputs.release }}'
-      # - uses: actions/checkout@v2
-      #   with:
-      #     ref: ${{ steps.release.outputs.release }}
-      #     fetch-depth: 0 # Get full history so that we can generate a change log
-      # - name: Latest release SHA
-      #   id: releasesha
-      #   run: echo ::set-output name=sha::$(git rev-parse HEAD)
-      # - uses: justincy/npm-version-action@2.0.1
-      #   id: latestversion
-      # - name: Print latest version
-      #   run: echo 'Latest version ${{ steps.latestversion.outputs.version }}'
-      # - name: New release?
-      #   id: newrelease
-      #   if: steps.currentversion.outputs.version != steps.latestversion.outputs.version
-      #   run: echo "::set-output name=newrelease::true"
-      # - name: Print newrelease
-      #   run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
-      # - name: Change log
-      #   if: steps.newrelease.outputs.newrelease == 'true'
-      #   id: changelog
-      #   run: git checkout ${{ github.sha }} && git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt
-      # - name: Release
-      #   if: steps.newrelease.outputs.newrelease == 'true'
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ steps.currentversion.outputs.version }}
-      #     release_name: ${{ steps.currentversion.outputs.version }}
-      #     body_path: changelog.txt
+      - uses: justincy/npm-version-action@2.0.1
+        id: currentversion
+      - name: Print current version
+        run: echo 'Current version ${{ steps.currentversion.outputs.version }}'
+      - uses: pozetroninc/github-action-get-latest-release@v0.4.0
+        id: release
+        with:
+          repository: ${{ github.repository }}
+      - name: Print release
+        run: echo 'Release ${{ steps.release.outputs.release }}'
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.release.outputs.release }}
+          fetch-depth: 0 # Get full history so that we can generate a change log
+      - name: Latest release SHA
+        id: releasesha
+        run: echo ::set-output name=sha::$(git rev-parse HEAD)
+      - uses: justincy/npm-version-action@2.0.1
+        id: latestversion
+      - name: Print latest version
+        run: echo 'Latest version ${{ steps.latestversion.outputs.version }}'
+      - name: New release?
+        id: newrelease
+        if: steps.currentversion.outputs.version != steps.latestversion.outputs.version
+        run: echo "::set-output name=newrelease::true"
+      - name: Print newrelease
+        run: echo 'New release--${{ steps.newrelease.outputs.newrelease }}'
+      - name: Change log
+        if: steps.newrelease.outputs.newrelease == 'true'
+        id: changelog
+        run: git checkout ${{ github.sha }} && git log ${{ steps.releasesha.outputs.sha }}..HEAD --pretty=format:"- %h %s" > changelog.txt
+      - name: Release
+        if: steps.newrelease.outputs.newrelease == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.currentversion.outputs.version }}
+          release_name: ${{ steps.currentversion.outputs.version }}
+          body_path: changelog.txt
